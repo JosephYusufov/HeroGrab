@@ -1,3 +1,9 @@
+# Output
+output
+
+# macOS directory files
+.DS_Store
+
 # Logs
 logs
 *.log

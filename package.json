@@ -1,0 +1,25 @@
+{
+  "name": "herograb",
+  "version": "1.0.0",
+  "description": "Grab a logo and collection of hero images from a list of URLs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JosephYusufov/HeroGrab.git"
+  },
+  "author": "Joseph Yusufov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JosephYusufov/HeroGrab/issues"
+  },
+  "homepage": "https://github.com/JosephYusufov/HeroGrab#readme",
+  "dependencies": {
+    "puppeteer": "^5.3.1",
+    "request": "^2.88.2",
+    "rmrf": "^2.0.2"
+  }
+}
