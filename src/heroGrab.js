@@ -40,11 +40,20 @@ const getLogoAndHeroImages = (siteURL, browser) => {
             heroCollection.sort((img1, img2) => {
                 const img1Area = img1.width * img1.height;
                 const img2Area = img2.width * img2.height;
-                if(img1Area > img2Area){
-                    return -1;
-                } else {
-                    return 1;
-                };
+                const img1HasHero = RegExp('hero').test(img1.url);
+                const img2HasHero = RegExp('hero').test(img2.url);
+
+                // if(img1HasHero && !img2HasHero){
+                //     return -1;
+                // } else if(img2HasHero && !img1HasHero){
+                //     return 1;
+                // } else {
+                    if(img1Area > img2Area){
+                        return -1;
+                    } else {
+                        return 1;
+                    };
+                // }
             });
 
             heroCollection = heroCollection.filter((img, i) => {
@@ -144,26 +153,30 @@ const getLogoAndHeroImages = (siteURL, browser) => {
 
 
 
-const saveImagesToDisk = imagesObj => {
+const saveImagesToDisk = (imagesObj, dir) => {
     // const fullUrl = url;
 
-    if (!fs.existsSync('output')){
-        fs.mkdirSync('output');
+    
+    // const dirPath = `output/${imagesObj.hostname}`;
+    // if (fs.existsSync(dirPath)){
+    //     rmrf(dirPath);
+    //     }
+    //     fs.mkdirSync(dirPath);
+    if (fs.existsSync(`${dir}/logo`)){
+        rmrf(`${dir}/logo`);
     }
+    fs.mkdirSync(`${dir}/logo`);
 
-    const dirPath = `output/${imagesObj.hostname}`;
-    if (fs.existsSync(dirPath)){
-        rmrf(dirPath);
+    if (fs.existsSync(`${dir}/hero`)){
+        rmrf(`${dir}/hero`);
     }
-    fs.mkdirSync(dirPath);
-    fs.mkdirSync(`${dirPath}/logo`);
-    fs.mkdirSync(`${dirPath}/hero`);
+    fs.mkdirSync(`${dir}/hero`);
 
     if(imagesObj.logo){
         try{
             let logoExtension = imagesObj.logo.url.substring(imagesObj.logo.url.lastIndexOf('.') + 1);
             logoExtension = logoExtension.includes('?')? logoExtension.substring(0, logoExtension.lastIndexOf('?')): logoExtension;
-            download(imagesObj.logo.url, `${dirPath}/logo/logo.${logoExtension}`, function(){
+            download(imagesObj.logo.url, `${dir}/logo/logo.${logoExtension}`, function(){
                 // console.log('done');
             });      
         } catch(e){
@@ -176,7 +189,7 @@ const saveImagesToDisk = imagesObj => {
             try{
                 let heroExtension = img.url.substring(img.url.lastIndexOf('.') + 1);
                 heroExtension = heroExtension.includes('?')? heroExtension.substring(0, heroExtension.lastIndexOf('?')): heroExtension;
-                download(img.url, `${dirPath}/hero/hero-${i}.${heroExtension}`, function(){
+                download(img.url, `${dir}/hero/hero-${i}.${heroExtension}`, function(){
                     // console.log('done');
                 });
             } catch(e){
@@ -187,11 +200,11 @@ const saveImagesToDisk = imagesObj => {
 };
 
 let download = (uri, filename, callback) => {
-    request.head(uri, (err, res, body) => {
+    return request.head(uri, (err, res, body) => {
     //   console.log('content-type:', res.headers['content-type']);
     //   console.log('content-length:', res.headers['content-length']);
   
-      request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+      return request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
     });
   };
   
