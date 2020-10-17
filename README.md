@@ -4,7 +4,7 @@ A simple command-line webscraping utility to retrieve a logo, and three hero ima
 ## Usage Instructions
 - Clone repository and `cd HeroGrab`
 - Run `npm i` to install dependencies
-- Run `npm i -g .` to make the `heroGrab` command line utility globally available on your machine.
+- Run `npm i -g .` to make the `heroGrabber` command line utility globally available on your machine.
 
 | Argument      | Description |
 | ------------- | ----------- |
