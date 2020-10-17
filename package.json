@@ -8,7 +8,7 @@
     "start": "node index.js"
   },
   "bin": {
-    "heroGrabber": "./bin/index.js" 
+    "heroGrabber": "./bin/index.js"
   },
   "repository": {
     "type": "git",
